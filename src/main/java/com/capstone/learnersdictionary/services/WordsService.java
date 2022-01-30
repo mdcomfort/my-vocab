@@ -7,7 +7,7 @@ import java.util.List;
 public interface WordsService {
     List<WordDto> getWords();
 
-    List<WordDto> getListWords(Long wordListId);
+//    List<WordDto> getListWords(Long wordListId);
 
     WordDto addWord(WordDto word);
 

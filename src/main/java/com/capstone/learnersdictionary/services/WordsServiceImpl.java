@@ -2,6 +2,7 @@ package com.capstone.learnersdictionary.services;
 
 import com.capstone.learnersdictionary.models.Word;
 import com.capstone.learnersdictionary.models.WordDto;
+import com.capstone.learnersdictionary.models.WordList;
 import com.capstone.learnersdictionary.repositories.WordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +29,11 @@ public class WordsServiceImpl implements WordsService {
     }
 
     @Override
-    public List<WordDto> getListWords(Long wordListId) {
-        return wordsRepository.findAllByWordListSetId(wordListId).stream().map(WordDto::new).collect(Collectors.toList());
-    }
-
-    @Override
     public WordDto addWord(WordDto wordDto) {
         Word word = new Word();
         word.setWord(wordDto.getWord());
         word.setDefinition(wordDto.getDefinition());
         word.setSentence(wordDto.getSentence());
-        word.getWordListSet().add(?);
         return new WordDto(wordsRepository.save(word));
     }
 

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "words")
 public class Word {
 
     @Id
@@ -15,14 +16,8 @@ public class Word {
     private String definition;
     private String sentence;
 
-    @ManyToMany
-    @JoinTable(
-            name = "wordslists",
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"word_id", "list_id"})},
-            joinColumns = {@JoinColumn(name = "word_id")},
-            inverseJoinColumns = {@JoinColumn(name = "list_id")}
-    )
-    private Set<WordList> wordListSet;
+    @ManyToMany(mappedBy = "wordListSet", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<WordList> wordList = new HashSet<>();
 
     public Word(String word, String definition, String sentence) {
         this.word = word;
@@ -71,7 +66,4 @@ public class Word {
         this.sentence = sentence;
     }
 
-    public Set<WordList> getWordListSet() {
-        return wordListSet;
-    }
 }

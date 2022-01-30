@@ -1,5 +1,6 @@
 package com.capstone.learnersdictionary.services;
 
+import com.capstone.learnersdictionary.models.WordDto;
 import com.capstone.learnersdictionary.models.WordList;
 import com.capstone.learnersdictionary.models.WordListDto;
 import com.capstone.learnersdictionary.repositories.ListsRepository;
@@ -22,6 +23,11 @@ public class ListsServiceImpl implements ListsService {
     @Override
     public List<WordListDto> getLists() {
         return listsRepository.findAll().stream().map(WordListDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WordListDto> getListWords(Long wordListId) {
+        return listsRepository.findAllByWordListSetId(wordListId).stream().map(WordListDto::new).collect(Collectors.toList());
     }
 
     @Override

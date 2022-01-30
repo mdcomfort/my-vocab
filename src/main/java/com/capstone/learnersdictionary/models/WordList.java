@@ -14,8 +14,14 @@ public class WordList {
 
     private String listName;
 
-    @ManyToMany(mappedBy = "wordListSet", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<Word> wordSet = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "words_lists",
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"list_id", "word_id"})},
+            joinColumns = {@JoinColumn(name = "list_id")},
+            inverseJoinColumns = {@JoinColumn(name = "word_id")}
+    )
+    private Set<Word> wordListSet;
 
     public WordList() {
     }
@@ -38,5 +44,9 @@ public class WordList {
 
     public void setListName(String listName) {
         this.listName = listName;
+    }
+
+    public Set<Word> getWordListSet() {
+        return wordListSet;
     }
 }

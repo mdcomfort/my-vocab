@@ -1,6 +1,8 @@
 package com.capstone.learnersdictionary.controllers;
 
 import com.capstone.learnersdictionary.models.WordDto;
+import com.capstone.learnersdictionary.models.WordListDto;
+import com.capstone.learnersdictionary.services.ListsService;
 import com.capstone.learnersdictionary.services.WordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +17,14 @@ import java.util.List;
 public class ListWordsController {
 
     @Autowired
-    public ListWordsController(WordsService wordsService) {
-        this.wordsService = wordsService;
+    public ListWordsController(ListsService listsService) {
+        this.listsService = listsService;
     }
 
-    private final WordsService wordsService;
+    private final ListsService listsService;
 
     @GetMapping("/words")
-    public List<WordDto> getListWords(@PathVariable Long id) {
-        return wordsService.getListWords(id);
+    public List<WordListDto> getListWords(@PathVariable Long id) {
+        return listsService.getListWords(id);
     }
 }
